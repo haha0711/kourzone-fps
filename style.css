@@ -1,0 +1,170 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:#080c10;color:#ddd;font-family:'Rajdhani',sans-serif;overflow:hidden;user-select:none}
+
+/* ── SCREENS ── */
+.screen{position:fixed;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center}
+.screen.active{display:flex}
+
+/* ── LOGO ── */
+.logo{font-size:52px;font-weight:700;letter-spacing:10px;color:#f1c40f;text-shadow:0 0 40px rgba(241,196,15,.25)}
+.logo span{color:rgba(241,196,15,.45)}
+.logo-sub{font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.3);margin-top:-8px}
+.logo-sm{font-size:20px;font-weight:700;letter-spacing:5px;color:#f1c40f}
+.logo-sm span{color:rgba(241,196,15,.45)}
+
+/* ── AUTH / NAME ── */
+.center-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;width:100%;max-width:360px;padding:0 20px}
+.field-lbl{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.3);text-transform:uppercase}
+.err-msg{font-size:11px;letter-spacing:1px;color:#e74c3c;min-height:14px}
+
+.digit-row{display:flex;gap:7px}
+.digit-box{width:38px;height:50px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;font-size:22px;color:#f1c40f;transition:border-color .2s}
+.digit-box.on{border-color:rgba(241,196,15,.5)}
+.digit-box.err{border-color:rgba(231,76,60,.5);color:#e74c3c}
+
+#codeIn{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+
+.txt-in,.code-txt{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:5px;padding:12px 14px;color:#f1c40f;font-family:'Share Tech Mono',monospace;font-size:16px;outline:none;transition:border-color .2s}
+.txt-in:focus,.code-txt:focus{border-color:rgba(241,196,15,.45);box-shadow:0 0 0 2px rgba(241,196,15,.07)}
+.code-txt{letter-spacing:8px;text-align:center;font-size:20px}
+
+/* ── BUTTONS ── */
+.btn-gold{width:100%;padding:12px;border-radius:5px;border:1px solid rgba(241,196,15,.4);background:rgba(241,196,15,.1);color:#f1c40f;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:3px;cursor:pointer;transition:all .15s}
+.btn-gold:hover{background:rgba(241,196,15,.18)}
+.btn-gold:active{transform:scale(.97)}
+.btn-gold:disabled{opacity:.3;cursor:not-allowed}
+.btn-gold.wide{flex:2}
+.btn-blue{padding:11px 18px;border-radius:5px;border:1px solid rgba(52,152,219,.4);background:rgba(52,152,219,.1);color:#3498db;font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-blue:hover{background:rgba(52,152,219,.2)}
+.btn-red{padding:6px 13px;border-radius:4px;border:1px solid rgba(231,76,60,.3);background:rgba(231,76,60,.1);color:#e74c3c;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;cursor:pointer}
+.btn-red-sm{flex:1;padding:9px;border-radius:4px;border:1px solid rgba(231,76,60,.3);background:rgba(231,76,60,.08);color:#e74c3c;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;letter-spacing:1px;cursor:pointer}
+.btn-purple{flex:1;padding:9px;border-radius:4px;border:1px solid rgba(155,89,182,.35);background:rgba(155,89,182,.1);color:#9b59b6;font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:1px;cursor:pointer}
+.btn-purple:hover{background:rgba(155,89,182,.2)}
+.btn-copy{padding:8px 14px;border-radius:4px;border:1px solid rgba(241,196,15,.3);background:rgba(241,196,15,.08);color:#f1c40f;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;cursor:pointer;white-space:nowrap;transition:all .15s}
+.btn-copy:hover{background:rgba(241,196,15,.16)}
+
+/* ── LOBBY HEADER ── */
+.lh{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:center;padding:12px 22px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(8,12,16,.92);backdrop-filter:blur(8px);z-index:10}
+.online-tag{font-family:'Share Tech Mono',monospace;font-size:12px;color:rgba(255,255,255,.4)}
+.online-tag::before{content:'● ';color:#2ecc71}
+
+#s-lobby{justify-content:flex-start;padding-top:58px}
+
+.lb-body{display:flex;gap:18px;padding:20px;width:100%;max-width:980px;margin:0 auto;height:calc(100vh - 58px);overflow-y:auto}
+.lb-left{flex:1;min-width:0}
+.lb-right{flex:1.1;min-width:0}
+
+.panel{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:8px;padding:18px}
+
+/* Tabs */
+.tab-bar{display:flex;border:1px solid rgba(255,255,255,.07);border-radius:4px;overflow:hidden;margin-bottom:18px}
+.tab{flex:1;padding:9px 4px;background:transparent;border:none;border-right:1px solid rgba(255,255,255,.07);color:rgba(255,255,255,.3);font-family:'Rajdhani',sans-serif;font-size:10px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all .15s}
+.tab:last-child{border-right:none}
+.tab.active{background:rgba(241,196,15,.08);color:#f1c40f}
+.tab:hover:not(.active){color:#ccc}
+
+.tc{display:none;flex-direction:column;gap:12px}
+.tc.active{display:flex}
+
+/* Mode buttons */
+.mode-list{display:flex;flex-direction:column;gap:8px}
+.mode-btn{display:flex;flex-direction:column;align-items:flex-start;padding:11px 14px;border-radius:5px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);cursor:pointer;transition:all .15s;text-align:left;width:100%}
+.mode-btn b{font-family:'Rajdhani',sans-serif;font-size:14px;font-weight:700;color:#ccc}
+.mode-btn span{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;font-family:'Share Tech Mono',monospace}
+.mode-btn.active{border-color:rgba(241,196,15,.4);background:rgba(241,196,15,.07)}
+.mode-btn.active b{color:#f1c40f}
+.mode-btn:hover:not(.active){border-color:rgba(255,255,255,.12)}
+
+/* Browse */
+.browse-item{display:flex;justify-content:space-between;align-items:center;padding:10px 13px;border-radius:5px;border:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.02);margin-bottom:7px}
+.bi-code{font-family:'Share Tech Mono',monospace;font-size:13px;color:#f1c40f}
+.bi-sub{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:1px;margin-top:2px}
+.empty{color:rgba(255,255,255,.2);font-size:13px;text-align:center;padding:28px 0}
+
+/* Join row */
+.join-row{display:flex;gap:8px}
+
+/* Lobby right */
+.panel-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.mode-title{font-size:17px;font-weight:700;color:#fff;margin-top:4px}
+.invite-box{display:flex;justify-content:space-between;align-items:center;background:rgba(241,196,15,.06);border:1px solid rgba(241,196,15,.18);border-radius:6px;padding:11px 15px;margin-bottom:14px}
+.invite-code{font-family:'Share Tech Mono',monospace;font-size:26px;color:#f1c40f;letter-spacing:7px;margin-top:4px}
+.team-grid{display:flex;gap:10px;margin-bottom:13px}
+.team-grid>div{flex:1}
+.team-lbl{font-size:9px;font-weight:700;letter-spacing:2px;margin-bottom:7px}
+.red-lbl{color:#e74c3c}.blue-lbl{color:#3498db}
+.plist{display:flex;flex-direction:column;gap:5px}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:4px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.02);font-size:13px}
+.prow.red{border-color:rgba(231,76,60,.25);background:rgba(231,76,60,.06)}
+.prow.blue{border-color:rgba(52,152,219,.25);background:rgba(52,152,219,.06)}
+.prow-name{font-weight:600;color:#ddd}
+.prow-you{font-size:9px;color:rgba(255,255,255,.3);margin-left:5px}
+.prow-bot{font-size:8px;border:1px solid rgba(155,89,182,.35);border-radius:3px;padding:1px 5px;color:#9b59b6;letter-spacing:1px}
+.lobby-btns{display:flex;gap:7px;margin-bottom:9px}
+.host-note{font-size:11px;color:rgba(255,255,255,.28);text-align:center;letter-spacing:1px;min-height:16px}
+
+/* ── GAME ── */
+#s-game{display:none}
+#s-game.active{display:block}
+#gc{position:fixed;inset:0;width:100%;height:100%}
+
+/* HUD */
+#hud{position:fixed;top:0;left:0;right:0;display:flex;justify-content:space-between;align-items:flex-start;padding:10px 14px;pointer-events:none;z-index:50}
+.hud-l,.hud-r{display:flex;flex-direction:column;gap:7px}
+.hud-c{display:flex;flex-direction:column;align-items:center;gap:5px}
+.hl{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.35);font-family:'Share Tech Mono',monospace}
+.hv{font-family:'Share Tech Mono',monospace;font-size:18px;color:#eee}
+.hv.gold{color:#f1c40f}
+.dim{opacity:.4}
+.hud-hp,.hud-ammo{display:flex;align-items:center;gap:8px}
+.hp-track{width:110px;height:6px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.hp-bar{height:100%;background:#2ecc71;border-radius:3px;transition:width .15s,background .3s}
+.reload-txt{font-family:'Share Tech Mono',monospace;font-size:11px;color:#e67e22;letter-spacing:2px;animation:blink .6s infinite}
+@keyframes blink{50%{opacity:.25}}
+.scoreboard-hud{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08);border-radius:5px;padding:5px 14px}
+.sr{font-family:'Share Tech Mono',monospace;font-size:15px;color:#e74c3c;font-weight:700}
+.sb{font-family:'Share Tech Mono',monospace;font-size:15px;color:#3498db;font-weight:700}
+.sdiv{font-size:9px;color:rgba(255,255,255,.3)}
+.mode-lbl{font-size:9px;letter-spacing:3px;color:rgba(255,255,255,.25)}
+.flag-hud{font-family:'Share Tech Mono',monospace;font-size:11px;color:#f1c40f;background:rgba(0,0,0,.6);padding:5px 10px;border-radius:3px;letter-spacing:1px}
+.kfeed{display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.kf{font-family:'Share Tech Mono',monospace;font-size:11px;background:rgba(0,0,0,.65);padding:4px 10px;border-radius:3px;animation:kfFade 3s forwards}
+@keyframes kfFade{0%,65%{opacity:1}100%{opacity:0}}
+.kf .kr{color:#e74c3c}.kf .kb{color:#3498db}
+
+/* Crosshair */
+#xhair{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:60}
+.xh{position:absolute;width:18px;height:2px;background:rgba(255,255,255,.8);top:-1px;left:-9px}
+.xv{position:absolute;width:2px;height:18px;background:rgba(255,255,255,.8);top:-9px;left:-1px}
+#xhair::after{content:'';position:absolute;width:4px;height:4px;background:#080c10;top:-2px;left:-2px}
+
+/* Click to play */
+.click-play{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,12,16,.92);z-index:200;cursor:pointer}
+.cp-title{font-size:30px;font-weight:700;color:#f1c40f;letter-spacing:5px;margin-bottom:8px}
+.cp-sub{font-size:13px;color:rgba(255,255,255,.4);letter-spacing:2px}
+
+/* Tab scoreboard */
+.tab-sb{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(8,12,16,.96);border:1px solid rgba(255,255,255,.09);border-radius:8px;padding:26px 32px;z-index:100;min-width:460px}
+.sb-title{font-size:10px;letter-spacing:4px;color:rgba(255,255,255,.3);text-align:center;margin-bottom:18px}
+.sb-teams{display:flex;gap:22px}
+.sb-teams>div{flex:1}
+.sb-row{display:flex;justify-content:space-between;padding:6px 10px;border-radius:4px;background:rgba(255,255,255,.03);margin-bottom:4px;font-family:'Share Tech Mono',monospace;font-size:12px}
+.sb-row .name{color:#ddd}
+.sb-row .stats{color:rgba(255,255,255,.4);font-size:11px}
+
+/* Death */
+.death-sc{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(231,76,60,.08);z-index:80;pointer-events:none}
+.death-txt{font-size:58px;font-weight:700;color:#e74c3c;letter-spacing:8px;text-shadow:0 0 40px rgba(231,76,60,.35)}
+.respawn-txt{font-family:'Share Tech Mono',monospace;font-size:16px;color:rgba(255,255,255,.4);margin-top:10px;letter-spacing:2px}
+
+/* Game over */
+.go-sc{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:rgba(8,12,16,.88);z-index:90}
+.go-winner{font-size:52px;font-weight:700;letter-spacing:6px;margin-bottom:8px}
+.go-score{font-family:'Share Tech Mono',monospace;font-size:16px;color:rgba(255,255,255,.4);margin-bottom:30px;letter-spacing:3px}
+
+/* Controls hint */
+.ctrl-hint{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);font-family:'Share Tech Mono',monospace;font-size:9px;color:rgba(255,255,255,.15);letter-spacing:2px;pointer-events:none;z-index:50}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}

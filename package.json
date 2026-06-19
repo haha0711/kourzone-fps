@@ -1,0 +1,14 @@
+{
+  "name": "kourzone-fps",
+  "version": "1.0.0",
+  "description": "KourZone - Multiplayer FPS Game",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1",
+    "uuid": "^9.0.0"
+  }
+}

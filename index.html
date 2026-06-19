@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>KourZone FPS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+<!-- ── SCREEN: AUTH ── -->
+<div id="s-auth" class="screen active">
+  <div class="center-wrap">
+    <div class="logo">KOUR<span>ZONE</span></div>
+    <p class="logo-sub">TACTICAL FPS · REAL MULTIPLAYER</p>
+    <p class="field-lbl">ENTER 7-DIGIT ACCESS CODE</p>
+    <div class="digit-row" id="digitRow"></div>
+    <input id="codeIn" type="tel" maxlength="7" autocomplete="off"/>
+    <p class="err-msg" id="authErr"></p>
+    <button class="btn-gold" id="authBtn" disabled>AUTHENTICATE</button>
+  </div>
+</div>
+
+<!-- ── SCREEN: NAME ── -->
+<div id="s-name" class="screen">
+  <div class="center-wrap">
+    <div class="logo">KOUR<span>ZONE</span></div>
+    <p class="field-lbl">CHOOSE YOUR CALLSIGN</p>
+    <input id="nameIn" type="text" maxlength="16" placeholder="e.g. ViperX, Nova…" class="txt-in" autocomplete="off"/>
+    <p class="err-msg" id="nameErr"></p>
+    <button class="btn-gold" id="nameBtn">ENTER ARENA →</button>
+  </div>
+</div>
+
+<!-- ── SCREEN: LOBBY ── -->
+<div id="s-lobby" class="screen">
+  <header class="lh">
+    <div class="logo-sm">KOUR<span>ZONE</span></div>
+    <span class="online-tag" id="onlineTag"></span>
+  </header>
+  <div class="lb-body">
+
+    <!-- Left panel: create / join / browse -->
+    <div class="lb-left">
+      <div class="panel">
+        <div class="tab-bar">
+          <button class="tab active" data-t="create">CREATE</button>
+          <button class="tab" data-t="join">JOIN CODE</button>
+          <button class="tab" data-t="browse">BROWSE</button>
+        </div>
+
+        <div class="tc active" id="tc-create">
+          <p class="field-lbl">GAME MODE</p>
+          <div class="mode-list">
+            <button class="mode-btn active" data-m="tdm">
+              <b>TEAM DEATHMATCH</b><span>First to 20 kills wins · any team size</span>
+            </button>
+            <button class="mode-btn" data-m="ctf">
+              <b>CAPTURE THE FLAG</b><span>Steal &amp; return 3 flags · team vs team</span>
+            </button>
+            <button class="mode-btn" data-m="1v1">
+              <b>1v1 DUEL</b><span>First to 10 kills wins · solo</span>
+            </button>
+          </div>
+          <button class="btn-gold" id="createBtn">CREATE LOBBY</button>
+        </div>
+
+        <div class="tc" id="tc-join">
+          <p class="field-lbl">6-CHARACTER INVITE CODE</p>
+          <div class="join-row">
+            <input id="joinIn" type="text" maxlength="6" placeholder="XXXXXX" class="code-txt"/>
+            <button class="btn-blue" id="joinBtn">JOIN</button>
+          </div>
+          <p class="err-msg" id="joinErr"></p>
+        </div>
+
+        <div class="tc" id="tc-browse">
+          <p class="field-lbl">OPEN LOBBIES</p>
+          <div id="browseList"><p class="empty">No open lobbies — create one!</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel: active lobby -->
+    <div class="lb-right" id="lbRight" style="display:none">
+      <div class="panel">
+        <div class="panel-top">
+          <div>
+            <p class="field-lbl">ACTIVE LOBBY</p>
+            <p class="mode-title" id="modeTitle"></p>
+          </div>
+          <button class="btn-red" id="leaveBtn">LEAVE</button>
+        </div>
+
+        <div class="invite-box">
+          <div>
+            <p class="field-lbl">INVITE CODE</p>
+            <p class="invite-code" id="inviteCode"></p>
+          </div>
+          <button class="btn-copy" id="copyBtn">COPY CODE</button>
+        </div>
+
+        <div class="team-grid">
+          <div>
+            <p class="team-lbl red-lbl">🔴 RED TEAM</p>
+            <div id="redList" class="plist"></div>
+          </div>
+          <div>
+            <p class="team-lbl blue-lbl">🔵 BLUE TEAM</p>
+            <div id="blueList" class="plist"></div>
+          </div>
+        </div>
+
+        <div class="lobby-btns">
+          <button class="btn-purple" id="addBotBtn">+ ADD BOT</button>
+          <button class="btn-red-sm" id="rmBotBtn">− REMOVE BOT</button>
+          <button class="btn-gold wide" id="startBtn">▶ START GAME</button>
+        </div>
+        <p class="host-note" id="hostNote"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SCREEN: GAME ── -->
+<div id="s-game" class="screen">
+  <canvas id="gc"></canvas>
+
+  <!-- HUD -->
+  <div id="hud">
+    <div class="hud-l">
+      <div class="hud-hp">
+        <span class="hl">HP</span>
+        <div class="hp-track"><div id="hpBar" class="hp-bar"></div></div>
+        <span id="hpNum" class="hv">100</span>
+      </div>
+      <div class="hud-ammo">
+        <span class="hl">AMMO</span>
+        <span id="ammoNum" class="hv gold">30<span class="dim">/30</span></span>
+      </div>
+      <div id="reloadTxt" class="reload-txt" style="display:none">⟳ RELOADING…</div>
+    </div>
+    <div class="hud-c">
+      <div class="scoreboard-hud">
+        <span class="sr" id="sr">RED 0</span>
+        <span class="sdiv">VS</span>
+        <span class="sb" id="sb">BLUE 0</span>
+      </div>
+      <span class="mode-lbl" id="modeLbl"></span>
+    </div>
+    <div class="hud-r">
+      <div id="flagHUD" class="flag-hud" style="display:none"></div>
+      <div id="killFeed" class="kfeed"></div>
+    </div>
+  </div>
+
+  <!-- Crosshair -->
+  <div id="xhair"><div class="xh"></div><div class="xv"></div></div>
+
+  <!-- Click to play overlay -->
+  <div id="clickPlay" class="click-play">
+    <p class="cp-title">CLICK TO PLAY</p>
+    <p class="cp-sub">Click to lock mouse and start playing</p>
+  </div>
+
+  <!-- Tab scoreboard -->
+  <div id="tabSB" class="tab-sb" style="display:none">
+    <p class="sb-title">SCOREBOARD</p>
+    <div class="sb-teams">
+      <div><p class="team-lbl red-lbl">RED TEAM</p><div id="sbRed"></div></div>
+      <div><p class="team-lbl blue-lbl">BLUE TEAM</p><div id="sbBlue"></div></div>
+    </div>
+  </div>
+
+  <!-- Death screen -->
+  <div id="deathSc" class="death-sc" style="display:none">
+    <p class="death-txt">YOU DIED</p>
+    <p id="respawnTxt" class="respawn-txt"></p>
+  </div>
+
+  <!-- Game over -->
+  <div id="goSc" class="go-sc" style="display:none">
+    <p id="goWinner" class="go-winner"></p>
+    <p id="goScore"  class="go-score"></p>
+    <button class="btn-gold" id="goBackBtn" style="width:220px">BACK TO LOBBY</button>
+  </div>
+
+  <p class="ctrl-hint">WASD · MOUSE AIM · CLICK SHOOT · R RELOAD · TAB SCORES · ESC MENU</p>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
